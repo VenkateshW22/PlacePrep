@@ -1,0 +1,155 @@
+{
+  "info": {
+    "name": "PlacePrep API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"John Doe\",\n    \"universityEmail\": \"john@university.edu\",\n    \"password\": \"password123\",\n    \"branch\": \"Computer Science\",\n    \"graduationYear\": 2024,\n    \"role\": \"USER\"\n}"
+            },
+            "url": "http://localhost:8080/api/auth/signup"
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"universityEmail\": \"john@university.edu\",\n    \"password\": \"password123\"\n}"
+            },
+            "url": "http://localhost:8080/api/auth/signin"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Experiences",
+      "item": [
+        {
+          "name": "Create Experience",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"companyName\": \"Tech Corp\",\n    \"jobRole\": \"Software Engineer\",\n    \"jobType\": \"FULL_TIME\",\n    \"finalVerdict\": \"SELECTED\",\n    \"isAnonymous\": false,\n    \"rounds\": [\n        {\n            \"roundName\": \"Online Assessment\",\n            \"description\": \"2 coding questions, 90 minutes\",\n            \"difficulty\": \"MEDIUM\"\n        },\n        {\n            \"roundName\": \"Technical Interview\",\n            \"description\": \"Data structures and algorithms\",\n            \"difficulty\": \"HARD\"\n        }\n    ]\n}"
+            },
+            "url": "http://localhost:8080/api/experiences"
+          }
+        },
+        {
+          "name": "Get All Experiences",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": "http://localhost:8080/api/experiences"
+          }
+        },
+        {
+          "name": "Get Experience by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": "http://localhost:8080/api/experiences/1"
+          }
+        },
+        {
+          "name": "Update Experience",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"companyName\": \"Updated Tech Corp\",\n    \"jobRole\": \"Senior Software Engineer\",\n    \"jobType\": \"FULL_TIME\",\n    \"finalVerdict\": \"SELECTED\",\n    \"isAnonymous\": true\n}"
+            },
+            "url": "http://localhost:8080/api/experiences/1"
+          }
+        },
+        {
+          "name": "Delete Experience",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": "http://localhost:8080/api/experiences/1"
+          }
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
