@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ExperienceResponse {
     private Long id;
+    private Long userId;
     private String companyName;
     private String jobRole;
     private String jobType;
@@ -26,6 +27,7 @@ public class ExperienceResponse {
     public static ExperienceResponse fromEntity(Experience experience) {
         return ExperienceResponse.builder()
                 .id(experience.getId())
+                .userId(experience.getUser().getId())
                 .companyName(experience.getCompanyName())
                 .jobRole(experience.getJobRole())
                 .jobType(experience.getJobType().name())
