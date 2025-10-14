@@ -20,4 +20,6 @@ public interface ExperienceRepository extends JpaRepository<Experience, Long> {
         Optional<Experience> findByIdAndUserId(@Param("id") Long id, @Param("userId") Long userId);
 
         void deleteByIdAndUserId(Long id, Long userId);
+
+        boolean existsByIdAndUserId(Long id, Long userId);
 }

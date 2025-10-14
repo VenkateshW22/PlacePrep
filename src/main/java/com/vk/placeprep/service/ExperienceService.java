@@ -51,9 +51,8 @@ public class ExperienceService {
                     .difficulty(roundRequest.getDifficulty())
                     .description(roundRequest.getDescription())
                     .topicsCovered(roundRequest.getTopicsCovered())
-                    .experience(experience)
                     .build();
-            experience.getRounds().add(round);
+            experience.addRound(round);
         });
 
         return experienceRepository.save(experience);

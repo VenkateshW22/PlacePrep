@@ -12,7 +12,6 @@ import java.util.Set;
 
 @Configuration
 public class DataLoader {
-
     @Bean
     CommandLineRunner initDatabase(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {
