@@ -51,16 +51,15 @@ public class ExperienceService {
                     .difficulty(roundRequest.getDifficulty())
                     .description(roundRequest.getDescription())
                     .topicsCovered(roundRequest.getTopicsCovered())
-                    .experience(experience)
                     .build();
-            experience.getRounds().add(round);
+            experience.addRound(round);
         });
 
         return experienceRepository.save(experience);
     }
 
-    public Experience updateExperience(Long id, ExperienceRequest request, Long id1) {
-        Experience experience = experienceRepository.findById(id)
+    public Experience updateExperience(Long id, ExperienceRequest request, Long userId) {
+        Experience experience = experienceRepository.findByIdAndUserId(id, userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Experience", "id", id));
 
         experience.setCompanyName(request.getCompanyName());
@@ -70,5 +69,12 @@ public class ExperienceService {
         experience.setAnonymous(request.isAnonymous());
 
         return experienceRepository.save(experience);
+    }
+
+    public void deleteExperience(Long id, Long userId) {
+        if (!experienceRepository.existsByIdAndUserId(id, userId)) {
+            throw new ResourceNotFoundException("Experience", "id", id);
+        }
+        experienceRepository.deleteByIdAndUserId(id, userId);
     }
 }

@@ -46,4 +46,12 @@ public class ExperienceController {
         Experience updatedExperience = experienceService.updateExperience(id, request, currentUser.getId());
         return ResponseEntity.ok(ExperienceResponse.fromEntity(updatedExperience));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteExperience(
+            @PathVariable Long id,
+            @AuthenticationPrincipal UserPrincipal currentUser) {
+        experienceService.deleteExperience(id, currentUser.getId());
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -34,7 +34,25 @@ public class Experience {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @OneToMany(mappedBy = "experience", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER) // Add fetch = EAGER
+    @OneToMany(mappedBy = "experience", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
+    @Builder.Default
     private List<Round> rounds = new ArrayList<>();
+    
+    // Helper method to add a round to the experience
+    public void addRound(Round round) {
+        if (rounds == null) {
+            rounds = new ArrayList<>();
+        }
+        rounds.add(round);
+        round.setExperience(this);
+    }
+    
+    // Helper method to remove a round from the experience
+    public void removeRound(Round round) {
+        if (rounds != null) {
+            rounds.remove(round);
+            round.setExperience(null);
+        }
+    }
 }

@@ -15,5 +15,11 @@ public interface ExperienceRepository extends JpaRepository<Experience, Long> {
 
         @Query("SELECT DISTINCT e FROM Experience e LEFT JOIN FETCH e.rounds")
         Page<Experience> findAllWithRounds(Pageable pageable);
+        
+        @Query("SELECT e FROM Experience e WHERE e.id = :id AND e.user.id = :userId")
+        Optional<Experience> findByIdAndUserId(@Param("id") Long id, @Param("userId") Long userId);
 
+        void deleteByIdAndUserId(Long id, Long userId);
+
+        boolean existsByIdAndUserId(Long id, Long userId);
 }
