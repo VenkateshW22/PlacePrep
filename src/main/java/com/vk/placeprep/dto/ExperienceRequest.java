@@ -14,5 +14,6 @@ public class ExperienceRequest {
     private JobType jobType;
     private FinalVerdict finalVerdict;
     private boolean isAnonymous;
+    private String description;
     private List<RoundRequest> rounds;
 }

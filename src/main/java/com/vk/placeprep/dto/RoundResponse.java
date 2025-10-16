@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-class RoundResponse {
+public class RoundResponse {
     private Long id;
     private String roundName;
     private String difficulty;

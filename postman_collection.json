@@ -1,0 +1,457 @@
+{
+  "info": {
+    "name": "PlacePrep API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"John Doe\",\n    \"universityEmail\": \"john@example.com\",\n    \"password\": \"Password@123\",\n    \"branch\": \"Computer Science\",\n    \"graduationYear\": 2023,\n    \"profilePictureUrl\": \"https://example.com/profiles/john-doe.jpg\",\n    \"linkedinUrl\": \"https://linkedin.com/in/johndoe\",\n    \"githubUrl\": \"https://github.com/johndoe\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/signup",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "signup"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"universityEmail\": \"john@example.com\",\n    \"password\": \"Password@123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Experiences",
+      "item": [
+        {
+          "name": "Search Experiences",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/experiences?companyName=Google&jobRole=SDE&jobType=FULL_TIME&finalVerdict=SELECTED",
+              "host": ["{{base_url}}"],
+              "path": ["api", "experiences"],
+              "query": [
+                {
+                  "key": "companyName",
+                  "value": "Google"
+                },
+                {
+                  "key": "jobRole",
+                  "value": "SDE"
+                },
+                {
+                  "key": "jobType",
+                  "value": "FULL_TIME"
+                },
+                {
+                  "key": "finalVerdict",
+                  "value": "SELECTED"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Experience by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/experiences/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "experiences", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Experience",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"companyName\": \"Google\",\n    \"jobRole\": \"Software Engineer\",\n    \"jobType\": \"FULL_TIME\",\n    \"finalVerdict\": \"SELECTED\",\n    \"isAnonymous\": false,\n    \"description\": \"Great interview experience with Google for SDE role.\",\n    \"rounds\": [\n        {\n            \"roundName\": \"Online Assessment\",\n            \"difficulty\": \"MEDIUM\",\n            \"description\": \"2 coding questions in 60 minutes\",\n            \"topicsCovered\": [\"Algorithms\", \"Data Structures\"]\n        },\n        {\n            \"roundName\": \"Technical Interview\",\n            \"difficulty\": \"HARD\",\n            \"description\": \"System design and coding questions\",\n            \"topicsCovered\": [\"System Design\", \"Algorithms\"]\n        }\n    ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/experiences",
+              "host": ["{{base_url}}"],
+              "path": ["api", "experiences"]
+            }
+          }
+        },
+        {
+          "name": "Update Experience",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"companyName\": \"Google\",\n    \"jobRole\": \"Senior Software Engineer\",\n    \"jobType\": \"FULL_TIME\",\n    \"finalVerdict\": \"SELECTED\",\n    \"isAnonymous\": false,\n    \"description\": \"Updated interview experience with Google.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/experiences/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "experiences", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Experience",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/experiences/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "experiences", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Experience Summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/experiences/1/summary",
+              "host": ["{{base_url}}"],
+              "path": ["api", "experiences", "1", "summary"]
+            }
+          }
+        },
+        {
+          "name": "Get All Topics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/experiences/topics",
+              "host": ["{{base_url}}"],
+              "path": ["api", "experiences", "topics"]
+            }
+          }
+        },
+        {
+          "name": "Get User Experiences",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/experiences/me?status=SELECTED",
+              "host": ["{{base_url}}"],
+              "path": ["api", "experiences", "me"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "SELECTED"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Get User Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users/me",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "me"]
+            },
+            "response": [
+              {
+                "name": "User Profile",
+                "originalRequest": {
+                  "method": "GET",
+                  "header": [
+                    {
+                      "key": "Authorization",
+                      "value": "Bearer {{auth_token}}",
+                      "type": "text"
+                    }
+                  ],
+                  "url": {
+                    "raw": "{{base_url}}/api/users/me",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "users", "me"]
+                  }
+                },
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "cookie": [],
+                "body": "{\n    \"id\": 1,\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"branch\": \"Computer Science\",\n    \"graduationYear\": 2024,\n    \"profilePictureUrl\": \"https://example.com/profiles/john-doe.jpg\",\n    \"linkedinUrl\": \"https://linkedin.com/in/johndoe\",\n    \"githubUrl\": \"https://github.com/johndoe\"\n}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update User Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"John Doe Updated\",\n    \"branch\": \"Computer Science and Engineering\",\n    \"graduationYear\": 2024,\n    \"profilePictureUrl\": \"https://example.com/profiles/john-doe.jpg\",\n    \"linkedinUrl\": \"https://linkedin.com/in/johndoe\",\n    \"githubUrl\": \"https://github.com/johndoe\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/update/me",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "update", "me"]
+            },
+            "response": [
+              {
+                "name": "Updated User Profile",
+                "originalRequest": {
+                  "method": "PUT",
+                  "header": [
+                    {
+                      "key": "Authorization",
+                      "value": "Bearer {{auth_token}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"name\": \"John Doe Updated\",\n    \"branch\": \"Computer Science and Engineering\",\n    \"graduationYear\": 2024,\n    \"profilePictureUrl\": \"https://example.com/profiles/john-doe-updated.jpg\",\n    \"linkedinUrl\": \"https://linkedin.com/in/johndoe\",\n    \"githubUrl\": \"https://github.com/johndoe\"\n}"
+                  },
+                  "url": {
+                    "raw": "{{base_url}}/api/users/update/me",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "users", "update", "me"]
+                  }
+                },
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "cookie": [],
+                "body": "{\n    \"id\": 1,\n    \"name\": \"John Doe Updated\",\n    \"email\": \"john@example.com\",\n    \"branch\": \"Computer Science and Engineering\",\n    \"graduationYear\": 2024,\n    \"profilePictureUrl\": \"https://example.com/profiles/john-doe-updated.jpg\",\n    \"linkedinUrl\": \"https://linkedin.com/in/johndoe\",\n    \"githubUrl\": \"https://github.com/johndoe\"\n}"
+              },
+              {
+                "name": "Update Password Example",
+                "originalRequest": {
+                  "method": "PUT",
+                  "header": [
+                    {
+                      "key": "Authorization",
+                      "value": "Bearer {{auth_token}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"currentPassword\": \"OldPassword@123\",\n    \"newPassword\": \"NewPassword@123\"\n}"
+                  },
+                  "url": {
+                    "raw": "{{base_url}}/api/users/update/me",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "users", "update", "me"]
+                  }
+                },
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "cookie": [],
+                "body": "{\n    \"id\": 1,\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"branch\": \"Computer Science and Engineering\",\n    \"graduationYear\": 2024,\n    \"profilePictureUrl\": \"https://example.com/profiles/john-doe.jpg\",\n    \"linkedinUrl\": \"https://linkedin.com/in/johndoe\",\n    \"githubUrl\": \"https://github.com/johndoe\"\n}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Get User Experience Summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users/me/experiences/summary",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "me", "experiences", "summary"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "auth_token",
+      "value": "your_jwt_token_here",
+      "type": "string"
+    }
+  ]
+}
