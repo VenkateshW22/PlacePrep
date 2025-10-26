@@ -1,0 +1,9 @@
+com.vk.placeprep
+com.vk.placeprep.config
+com.vk.placeprep.controller
+com.vk.placeprep.dto
+com.vk.placeprep.exception
+com.vk.placeprep.model
+com.vk.placeprep.repository
+com.vk.placeprep.security
+com.vk.placeprep.service
