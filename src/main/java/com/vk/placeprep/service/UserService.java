@@ -20,6 +20,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Service class for managing user profiles and related operations.
+ * Handles user profile management, authentication, and user-specific data aggregation.
+ * 
+ * @author Venkatesh K
+ * @version 1.0
+ * @since 2025-10-26
+ */
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -27,6 +35,13 @@ public class UserService {
     private final ExperienceRepository experienceRepository;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Retrieves a user's profile information by their email address.
+     *
+     * @param email The university email address of the user
+     * @return UserProfileResponse containing the user's profile information
+     * @throws ResourceNotFoundException if no user is found with the given email
+     */
     @Transactional(readOnly = true)
     public UserProfileResponse getUserProfile(String email) {
         User user = userRepository.findByUniversityEmail(email)
@@ -44,8 +59,20 @@ public class UserService {
                 .build();
     }
 
+    /**
+     * Updates a user's profile information.
+     * Allows partial updates - only non-null fields in the request will be updated.
+     * Handles password updates with proper hashing if both current and new passwords are provided.
+     *
+     * @param email   The email of the user whose profile to update
+     * @param request The UpdateProfileRequest containing the fields to update
+     * @return The updated user profile
+     * @throws ResourceNotFoundException if the user is not found
+     * @throws IllegalArgumentException if the current password is incorrect when changing passwords
+     */
     @Transactional
     public UserProfileResponse updateUserProfile(String email, UpdateProfileRequest request) {
+        // Find the user or throw if not found
         User user = userRepository.findByUniversityEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
 
@@ -100,11 +127,26 @@ public class UserService {
                 .build();
     }
 
+    /**
+     * Checks if a user is the owner of a specific experience.
+     * 
+     * @param email The email of the user to check
+     * @param experienceId The ID of the experience to verify ownership for
+     * @return true if the user owns the experience, false otherwise
+     */
     @Transactional(readOnly = true)
     public boolean isUserOwnerOfExperience(String email, Long experienceId) {
         return userRepository.existsByUniversityEmailAndExperiencesId(email, experienceId);
     }
 
+    /**
+     * Generates a comprehensive summary of a user's interview experiences.
+     * The summary includes statistics about applications, success rates, and common patterns.
+     *
+     * @param email The email of the user to generate the summary for
+     * @return UserExperienceSummary containing aggregated statistics and insights
+     * @throws ResourceNotFoundException if no user is found with the given email
+     */
     @Transactional(readOnly = true)
     public UserExperienceSummary getUserExperienceSummary(String email) {
         // Get user by email

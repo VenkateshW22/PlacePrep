@@ -18,19 +18,49 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * REST controller for handling authentication-related requests.
+ * Provides endpoints for user registration and login.
+ * 
+ * @author Venkatesh K
+ * @version 1.0
+ * @since 2025-10-26
+ */
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    @Autowired
-    AuthenticationManager authenticationManager;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    PasswordEncoder passwordEncoder;
-    @Autowired
-    JwtTokenProvider tokenProvider;
+    private final AuthenticationManager authenticationManager;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider tokenProvider;
 
+    /**
+     * Constructs a new AuthController with the required dependencies.
+     *
+     * @param authenticationManager The authentication manager
+     * @param userRepository The user repository
+     * @param passwordEncoder The password encoder
+     * @param tokenProvider The JWT token provider
+     */
+    @Autowired
+    public AuthController(AuthenticationManager authenticationManager,
+                         UserRepository userRepository,
+                         PasswordEncoder passwordEncoder,
+                         JwtTokenProvider tokenProvider) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.tokenProvider = tokenProvider;
+    }
+
+    /**
+     * Authenticates a user and returns a JWT token upon successful authentication.
+     *
+     * @param loginRequest The login request containing user credentials
+     * @return ResponseEntity containing a JWT token if authentication is successful,
+     *         or an error response if authentication fails
+     */
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
@@ -44,6 +74,12 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
+    /**
+     * Registers a new user account.
+     *
+     * @param signUpRequest The sign-up request containing user details
+     * @return ResponseEntity indicating success or failure of user registration
+     */
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignUpRequest signUpRequest) {
         if (userRepository.existsByUniversityEmail(signUpRequest.getUniversityEmail())) {
