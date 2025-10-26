@@ -1,3 +1,14 @@
+package com.vk.placeprep.dto;
+
+import com.vk.placeprep.model.FinalVerdict;
+import com.vk.placeprep.model.JobType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
 /**
  * Data Transfer Object for defining search criteria for interview experiences.
  * Allows filtering experiences based on various attributes such as company, job role, type, verdict, and topics.

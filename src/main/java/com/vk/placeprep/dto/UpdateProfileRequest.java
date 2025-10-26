@@ -75,4 +75,10 @@ public class UpdateProfileRequest {
      * Should be a valid URL if provided.
      */
     private String githubUrl;
+    
+    /**
+     * The URL to the user's profile picture.
+     * Should be a valid URL pointing to an image file.
+     */
+    private String profilePictureUrl;
 }
